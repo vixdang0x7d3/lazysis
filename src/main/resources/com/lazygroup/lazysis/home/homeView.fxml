@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox fx:id="results" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lazygroup.lazysis.home.HomeViewFxmlController">
+   <children>
+      <ToolBar prefHeight="40.0" prefWidth="200.0">
+        <items>
+          <Button fx:id="changePasswordButton" mnemonicParsing="false" text="Đổi password" />
+            <Button fx:id="addLoginButton" mnemonicParsing="false" text="Thêm login" />
+        </items>
+      </ToolBar>
+      <HBox spacing="5.0">
+         <children>
+            <Label text="Tên người dùng:" />
+            <Label fx:id="inAppUsernameLabel" text="in-app name place holder" />
+         </children>
+      </HBox>
+      <HBox spacing="5.0">
+         <children>
+            <Label fx:id="maGv_maSvPromptLabel" text="Mã:" />
+            <Label fx:id="maGv_maSvLabel" text=" magv/masv place holder" />
+         </children>
+      </HBox>
+      <HBox spacing="5.0">
+         <children>
+            <Label text="Nhóm người dùng:" />
+            <Label fx:id="groupLabel" text="group place holder" />
+         </children>
+      </HBox>
+      <HBox spacing="5.0">
+         <children>
+            <Label fx:id="maLopPromptLabel" text="Mã lớp: " />
+            <Label fx:id="maLopLabel" text="maLop place holder (optional)" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
+

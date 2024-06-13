@@ -1,0 +1,41 @@
+app.title: HELLO MOM
+
+spring.application:
+    name: lazysis
+
+spring.main:
+    web-application-type: none
+
+db.defaults:
+    sv-username: 'SINHVIEN'
+    sv-password: '123456'
+
+default.datasource:
+    username: sa
+    url: jdbc:sqlserver://192.168.1.7:1433;databaseName=;encrypt=false
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    password: '123456'
+
+site-cntt.datasource:
+    id: 'CNTT'
+    username: sa
+    url: jdbc:sqlserver://192.168.1.7:57031;databaseName=QLDSV_HTC;encrypt=false
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    password: '123456'
+    name: 'Khoa CNTT'
+
+site-vt.datasource:
+    id: 'VT'
+    username: sa
+    url: jdbc:sqlserver://192.168.1.7:57326;databaseName=QLDSV_HTC;encrypt=false
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    password: '123456'
+    name: 'Khoa VT'
+
+site-kt.datasource:
+    id: 'KT'
+    username: sa
+    url: jdbc:sqlserver://192.168.1.7:57779;databaseName=QLDSV_HTC;encrypt=false
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    password: '123456'
+    name: 'Bo phan ke toan'
