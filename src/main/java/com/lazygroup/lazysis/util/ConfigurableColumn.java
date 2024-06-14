@@ -1,9 +1,9 @@
-package ca.pragmaticcoding.widgetsfx.tables;
-
+package com.lazygroup.lazysis.util;
 
 import javafx.scene.control.TableColumn;
 
-public abstract class ConfigurableColumn<CHILD extends ConfigurableColumn<CHILD, S, T>, S, T> extends TableColumn<S, T> {
+public abstract class ConfigurableColumn<CHILD extends ConfigurableColumn<CHILD, S, T>, S, T>
+        extends TableColumn<S, T> {
 
     public ConfigurableColumn(String columnHeading) {
         super(columnHeading);

@@ -1,42 +1,101 @@
 package com.lazygroup.lazysis.sinhvien;
 
-import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.lazygroup.lazysis.dao.Dao;
-
-import javafx.collections.ObservableList;
+import com.lazygroup.lazysis.util.DatabaseUtils;
 
 @Component
 public class SinhVienInteractor {
 
-	ObservableList<SinhVienModel> model;
+	SinhVienModel model;
+
 	Dao<SinhVien> dao;
+	DatabaseUtils dbUtils;
 
 	@Autowired
-	SinhVienInteractor(ObservableList<SinhVienModel> dsSinhVienModel, SinhVienDaoImpl sinhvienDao) {
-		this.model = dsSinhVienModel;
+	SinhVienInteractor(SinhVienModel model, SinhVienDaoImpl sinhvienDao,
+			DatabaseUtils dbUtils) {
+		this.model = model;
 		this.dao = sinhvienDao;
+		this.dbUtils = dbUtils;
+
 	}
 
-	public List<SinhVienModel> fetchData() {
+	public List<SinhVienModelItem> fetchData() {
 
-		List<SinhVienModel> data = dao.list().stream().map((sv) -> createModelItemFromSinhVien(sv))
+		dbUtils.setThreadBoundContext(model.getUsername(), model.getPassword(), model.getSite());
+
+		List<SinhVienModelItem> data = dao.list().stream().map((sv) -> createModelItemFromSinhVien(sv))
 				.collect(Collectors.toList());
+
+		dbUtils.clearThreadBoundContext();
 
 		return data;
 	}
 
-	public void updateModel(List<SinhVienModel> data) {
-		this.model.setAll(data);
+	public void themSinhVien(SinhVienModelItem modelItem) {
+		dbUtils.setThreadBoundContext(model.getUsername(), model.getPassword(), model.getSite());
+
+		dao.create(createSinhVienFromModelItem(modelItem));
+
+		dbUtils.clearThreadBoundContext();
 	}
 
-	public SinhVienModel createModelItemFromSinhVien(SinhVien sinhvien) {
-		SinhVienModel modelItem = new SinhVienModel();
+	public void suaSinhVien(SinhVienModelItem modelItem) {
+		dbUtils.setThreadBoundContext(model.getUsername(), model.getPassword(), model.getSite());
+
+		dao.update(createSinhVienFromModelItem(modelItem), model.getSelectedItem().getMaSv());
+
+		dbUtils.clearThreadBoundContext();
+	}
+
+	public void xoaSinhVien(String maSv) {
+		dbUtils.setThreadBoundContext(model.getUsername(), model.getPassword(), model.getSite());
+
+		dao.delete(maSv);
+
+		dbUtils.clearThreadBoundContext();
+	}
+
+	public void updateModel(List<SinhVienModelItem> data) {
+		this.model.allItemsProperty().get().setAll(data);
+	}
+
+	public void updateModel(SinhVienModelItem data) {
+		this.model.allItemsProperty().add(data);
+	}
+
+	public void updateModel(String maSv, SinhVienModelItem data) {
+		Optional<SinhVienModelItem> oldItem = getSinhVienModelItem(maSv);
+		oldItem.ifPresent(model.getAllItems()::remove);
+
+		updateModel(data);
+	}
+
+	public void updateModel(String maSv) {
+		Optional<SinhVienModelItem> item = getSinhVienModelItem(maSv);
+		item.ifPresent(model.getAllItems()::remove);
+	}
+
+	public Optional<SinhVienModelItem> getSinhVienModelItem(String maSv) {
+
+		for (SinhVienModelItem i : model.getAllItems()) {
+			if (i.getMaSv().equals(maSv))
+				return Optional.of(i);
+		}
+		return Optional.empty();
+	}
+
+	/* MAPPERS */
+
+	public SinhVienModelItem createModelItemFromSinhVien(SinhVien sinhvien) {
+		SinhVienModelItem modelItem = new SinhVienModelItem();
 
 		modelItem.setMaSv(sinhvien.getMaSv());
 		modelItem.setHo(sinhvien.getHo());
@@ -50,5 +109,22 @@ public class SinhVienInteractor {
 		modelItem.setPassword(sinhvien.getPassword());
 
 		return modelItem;
+	}
+
+	public SinhVien createSinhVienFromModelItem(SinhVienModelItem modelItem) {
+
+		SinhVien sinhvien = SinhVien.builder()
+				.maSv(modelItem.getMaSv())
+				.ho(modelItem.getHo())
+				.ten(modelItem.getTen())
+				.isFemale(modelItem.getIsFemale())
+				.diaChi(modelItem.getDiaChi())
+				.ngaySinh(modelItem.getNgaySinh())
+				.maLop(modelItem.getMaLop())
+				.daNghiHoc(modelItem.getDaNghiHoc())
+				.password(modelItem.getPassword())
+				.build();
+
+		return sinhvien;
 	}
 }

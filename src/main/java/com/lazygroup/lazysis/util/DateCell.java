@@ -23,7 +23,7 @@ public class DateCell<TableModel> extends TableCell<TableModel, LocalDate> {
                         () -> (itemProperty().get() != null) ? DateWidgets.formatDate(itemProperty().get()) : "",
                         itemProperty()));
         setGraphic(text);
-        setAlignment(Pos.CENTER_RIGHT);
+        setAlignment(Pos.CENTER_LEFT);
     }
 
 }

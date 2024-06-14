@@ -1,5 +1,6 @@
 package com.lazygroup.lazysis.sinhvien;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,10 +11,8 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Component;
 import com.lazygroup.lazysis.dao.Dao;
-import com.lazygroup.lazysis.util.DatabaseUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,28 +20,29 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class SinhVienDaoImpl implements Dao<SinhVien> {
 
-	private final String sql_listSinhVien = "SELECT * FROM SINHVIEN";
+	private final String sql_findAll = "SELECT * FROM SINHVIEN";
 	private final String sql_ThongTinSinhVien = "{call sp_ThongTinSV(:maSv)}";
 
 	private final String sql_ThemSinhVien = """
-			call sp_ThemSinhVien(:maSv, :ho, :ten, :phai, :diaChi, :ngaySinh, :maLop, :daNghiHoc, :password, 1)
-					""";
+			{call sp_ThemSinhVien(:maSv, :ho, :ten, :phai, :diaChi, :ngaySinh, :maLop, :daNghiHoc, :password, 1)}
+							""";
 
 	private final String sql_SuaSinhVien = """
-			call sp_SuaSinhVien(:maSv, :ho, :ten, :phai, :diaChi, :ngaySinh, :maLop, :daNghiHoc, :password, 1)
-					""";
+			{call sp_SuaSinhVien(:maSv, :ho, :ten, :phai, :diaChi, :ngaySinh, :maLop, :daNghiHoc, :password, 1)}
+							""";
 
-	private final String sql_XoaSinhVien = "call sp_XoaSinhVien(:maSv, 1)";
+	private final String sql_XoaSinhVien = "{call sp_XoaSinhVien(:maSv, 1)}";
 
 	private NamedParameterJdbcTemplate npJdbcTemplate;
 
 	@Autowired
-	SinhVienDaoImpl(DatabaseUtils dbUtils, NamedParameterJdbcTemplate npJdbcTemplate,
-			SimpleJdbcCall simpleJdbcCall) {
+	SinhVienDaoImpl(NamedParameterJdbcTemplate npJdbcTemplate) {
 		this.npJdbcTemplate = npJdbcTemplate;
 	}
 
 	RowMapper<SinhVien> rowMapper = (rs, rowNum) -> {
+
+		Optional<Date> optionalNgaySinh = Optional.ofNullable(rs.getDate("NGAYSINH"));
 
 		SinhVien sinhVien = SinhVien.builder()
 				.maSv(rs.getString("MASV"))
@@ -50,7 +50,9 @@ public class SinhVienDaoImpl implements Dao<SinhVien> {
 				.ten(rs.getString("TEN"))
 				.isFemale(rs.getBoolean("PHAI"))
 				.diaChi(rs.getString("DIACHI"))
-				.ngaySinh(rs.getTimestamp("NGAYSINH").toLocalDateTime())
+				.ngaySinh((optionalNgaySinh.isPresent()
+						? optionalNgaySinh.get().toLocalDate().atStartOfDay()
+						: null))
 				.maLop(rs.getString("MALOP"))
 				.daNghiHoc(rs.getBoolean("DANGHIHOC"))
 				.build();

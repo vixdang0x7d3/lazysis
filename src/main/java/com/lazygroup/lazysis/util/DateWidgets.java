@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 
 public class DateWidgets {
 
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final DateTimeFormatter jsonFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public static String formatDate(LocalDate dateToFormat) {

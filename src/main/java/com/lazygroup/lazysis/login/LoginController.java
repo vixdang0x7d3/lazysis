@@ -3,6 +3,7 @@ package com.lazygroup.lazysis.login;
 import java.util.Map;
 import java.util.function.Consumer;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
@@ -21,7 +22,8 @@ public class LoginController {
 	private final LoginViewBuilder viewBuilder;
 	private Consumer<LoginDto> outerPostLoginHandler;
 
-	public LoginController(LoginModel model, LoginInteractor interactor, Map<String, String> siteIdLookUpMap) {
+	public LoginController(LoginModel model, LoginInteractor interactor,
+			@Qualifier("siteIdLookUpMap") Map<String, String> siteIdLookUpMap) {
 
 		this.model = model;
 		this.interactor = interactor;

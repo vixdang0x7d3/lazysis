@@ -1,4 +1,4 @@
-package com.lazygroup.lazysis.sinhvien;
+package com.lazygroup.lazysis.lop;
 
 import org.springframework.stereotype.Component;
 
@@ -12,41 +12,41 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 @Component
-public class SinhVienModel {
-	private ListProperty<SinhVienModelItem> allItems = new SimpleListProperty<>(
+public class LopModel {
+	private final ListProperty<LopModelItem> allItems = new SimpleListProperty<>(
 			FXCollections.observableArrayList());
-	private ObjectProperty<SinhVienModelItem> selectedItem = new SimpleObjectProperty<>();
+	private final ObjectProperty<LopModelItem> selectedItem = new SimpleObjectProperty<>();
 
-	private StringProperty username = new SimpleStringProperty("");
-	private StringProperty password = new SimpleStringProperty("");
-	private StringProperty site = new SimpleStringProperty("");
+	private final StringProperty username = new SimpleStringProperty("");
+	private final StringProperty password = new SimpleStringProperty("");
+	private final StringProperty site = new SimpleStringProperty("");
 
-	public ObservableList<SinhVienModelItem> getAllItems() {
-		return this.allItems.get();
-	}
-
-	public void setAllItems(ObservableList<SinhVienModelItem> items) {
-		this.allItems.set(items);
-	}
-
-	public ListProperty<SinhVienModelItem> allItemsProperty() {
+	public ObservableList<LopModelItem> getAllItems() {
 		return allItems;
 	}
 
-	public void setSelectedItem(SinhVienModelItem selectedItem) {
-		this.selectedItem.set(selectedItem);
+	public void setAllItems(ObservableList<LopModelItem> allItems) {
+		this.allItems.set(allItems);
 	}
 
-	public SinhVienModelItem getSelectedItem() {
+	public ListProperty<LopModelItem> allItemsProperty() {
+		return allItems;
+	}
+
+	public LopModelItem getSelectedItem() {
 		return this.selectedItem.get();
 	}
 
-	public ObjectProperty<SinhVienModelItem> selectedItemProperty() {
+	public void setSelectedItem(LopModelItem selectedItem) {
+		this.selectedItem.set(selectedItem);
+	}
+
+	public ObjectProperty<LopModelItem> selectedItemProperty() {
 		return selectedItem;
 	}
 
 	public String getUsername() {
-		return this.username.get();
+		return username.get();
 	}
 
 	public void setUsername(String username) {
@@ -58,7 +58,7 @@ public class SinhVienModel {
 	}
 
 	public String getPassword() {
-		return this.password.get();
+		return password.get();
 	}
 
 	public void setPassword(String password) {

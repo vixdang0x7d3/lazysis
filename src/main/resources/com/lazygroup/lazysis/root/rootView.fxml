@@ -37,7 +37,7 @@
         <tabs>
           <Tab fx:id="homeTab" text="Trang chủ">
           </Tab>
-          <Tab text="Danh sách sinh viên">
+          <Tab fx:id="sinhvienTab" text="Danh sách sinh viên">
           </Tab>
         </tabs>
       </TabPane>

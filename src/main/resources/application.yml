@@ -12,14 +12,14 @@ db.defaults:
 
 default.datasource:
     username: sa
-    url: jdbc:sqlserver://192.168.1.7:1433;databaseName=;encrypt=false
+    url: jdbc:sqlserver://192.168.240.1:1433;databaseName=;encrypt=false
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     password: '123456'
 
 site-cntt.datasource:
     id: 'CNTT'
     username: sa
-    url: jdbc:sqlserver://192.168.1.7:57031;databaseName=QLDSV_HTC;encrypt=false
+    url: jdbc:sqlserver://192.168.240.1:57031;databaseName=QLDSV_HTC;encrypt=false
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     password: '123456'
     name: 'Khoa CNTT'
@@ -27,7 +27,7 @@ site-cntt.datasource:
 site-vt.datasource:
     id: 'VT'
     username: sa
-    url: jdbc:sqlserver://192.168.1.7:57326;databaseName=QLDSV_HTC;encrypt=false
+    url: jdbc:sqlserver://192.168.240.1:57326;databaseName=QLDSV_HTC;encrypt=false
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     password: '123456'
     name: 'Khoa VT'
@@ -35,7 +35,7 @@ site-vt.datasource:
 site-kt.datasource:
     id: 'KT'
     username: sa
-    url: jdbc:sqlserver://192.168.1.7:57779;databaseName=QLDSV_HTC;encrypt=false
+    url: jdbc:sqlserver://192.168.240.1:57779;databaseName=QLDSV_HTC;encrypt=false
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     password: '123456'
     name: 'Bo phan ke toan'

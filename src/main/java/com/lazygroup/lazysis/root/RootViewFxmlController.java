@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import com.lazygroup.lazysis.home.HomeController;
 import com.lazygroup.lazysis.home.HomeViewFxmlController;
 import com.lazygroup.lazysis.sinhvien.SinhVienController;
 
@@ -45,22 +46,22 @@ public class RootViewFxmlController implements Initializable {
 
 	private final RootModel model;
 
-	private final FxWeaver fxWeaver;
-
 	private final Map<String, String> idLookUp;
 
 	private final Runnable logoutHandler;
 
+	private final Region homeTabContent;
 	private final Region sinhvienTabContent;
 
 	@Autowired
-	RootViewFxmlController(RootModel model, RootInteractor interactor, FxWeaver fxWeaver,
+	RootViewFxmlController(RootModel model, RootInteractor interactor,
 			@Qualifier("siteIdLookUpMapGV") Map<String, String> idLookUp,
+			HomeController homeController,
 			SinhVienController sinhvienController) {
 		this.model = model;
-		this.fxWeaver = fxWeaver;
 		this.idLookUp = idLookUp;
 		this.logoutHandler = interactor::logout;
+		this.homeTabContent = homeController.getView();
 		this.sinhvienTabContent = sinhvienController.getView();
 	}
 
@@ -97,8 +98,7 @@ public class RootViewFxmlController implements Initializable {
 	}
 
 	private void configureHomeTab() {
-		Node tabContent = fxWeaver.loadView(HomeViewFxmlController.class);
-		homeTab.setContent(tabContent);
+		homeTab.setContent(homeTabContent);
 	}
 
 	private void configureSinhVienTab() {
@@ -117,4 +117,5 @@ public class RootViewFxmlController implements Initializable {
 		configureHomeTab();
 		configureSinhVienTab();
 	}
+
 }

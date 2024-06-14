@@ -19,10 +19,6 @@ public class RootInteractor {
 	RootInteractor(RootModel model, DatabaseUtils dbUtils) {
 		this.model = model;
 		this.dbUtils = dbUtils;
-
-		model.siteProperty().addListener((ob) -> {
-			System.out.println("group property invalidated!, value = " + model.getSite());
-		});
 	}
 
 	// called before root view is showed

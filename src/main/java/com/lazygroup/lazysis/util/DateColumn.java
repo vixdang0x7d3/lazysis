@@ -21,7 +21,7 @@ public class DateColumn<TableModel> extends ConfigurableColumn<DateColumn<TableM
 
     private void initialize() {
         setMinWidth(80);
-        setMaxWidth(80);
+        // setMaxWidth(80);
         setCellFactory(column -> new DateCell<>());
     }
 
