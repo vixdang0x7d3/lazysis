@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
-public class LopDao implements Dao<Lop> {
+public class LopDaoImpl implements Dao<Lop, String> {
 
 	private final String sql_findAll = "SELECT * FROM LOP";
 	private final String sql_findByMaLop = "SELECT * FROM LOP WHERE MALOP = :maLop";
@@ -40,7 +40,7 @@ public class LopDao implements Dao<Lop> {
 	};
 
 	@Autowired
-	LopDao(NamedParameterJdbcTemplate npJdbcTemplate) {
+	LopDaoImpl(NamedParameterJdbcTemplate npJdbcTemplate) {
 		this.npJdbcTemplate = npJdbcTemplate;
 	}
 
@@ -82,12 +82,16 @@ public class LopDao implements Dao<Lop> {
 				.addValue("maKhoa", t.getMaKhoa());
 
 		int row = npJdbcTemplate.update(sql_GhiLop, in);
+		if (row == 1) {
+			log.info("lop " + id + " updated");
+		}
 	}
 
 	@Override
 	public void delete(String id) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'delete'");
+		SqlParameterSource in = new MapSqlParameterSource("maSv", id);
+		npJdbcTemplate.update(sql_XoaLop, in);
+
 	}
 
 }

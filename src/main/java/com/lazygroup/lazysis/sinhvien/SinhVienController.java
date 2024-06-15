@@ -5,12 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.lazygroup.lazysis.root.RootModel;
-
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
 import javafx.concurrent.Task;
-import javafx.scene.control.Tab;
 import javafx.scene.layout.Region;
 import net.rgielen.fxweaver.core.FxWeaver;
 
@@ -22,8 +19,7 @@ public class SinhVienController {
 	private final SinhVienViewBuilder viewBuilder;
 
 	@Autowired
-	SinhVienController(SinhVienModel model, SinhVienInteractor interactor,
-			FxWeaver fxWeaver) {
+	SinhVienController(SinhVienModel model, SinhVienInteractor interactor, FxWeaver fxWeaver) {
 		this.model = model;
 		this.interactor = interactor;
 		viewBuilder = new SinhVienViewBuilder(fxWeaver, this::load);
@@ -81,6 +77,9 @@ public class SinhVienController {
 		themTask.setOnFailed(evt -> {
 			themTask.getException().printStackTrace();
 		});
+
+		Thread themThread = new Thread(themTask);
+		themThread.start();
 	}
 
 	public void sua(SinhVienModelItem modelItem) {
@@ -96,18 +95,23 @@ public class SinhVienController {
 		suaTask.setOnSucceeded(evt -> {
 			interactor.updateModel(model.getSelectedItem().getMaSv(), modelItem);
 		});
+
+		Thread suaThread = new Thread(suaTask);
+		suaThread.start();
 	}
 
 	public void xoa(Runnable postActionGuiStuffs) {
 		Task<Void> xoaTask = new Task<Void>() {
 			@Override
 			protected Void call() throws Exception {
-				String maSv = model.getSelectedItem().getMaSv();
-				interactor.xoaSinhVien(maSv);
+				interactor.xoaSinhVien();
 				return null;
 			}
 		};
 		xoaTask.setOnSucceeded(evt -> interactor.updateModel(model.getSelectedItem().getMaSv()));
+
+		Thread xoaThread = new Thread(xoaTask);
+		xoaThread.start();
 	}
 
 	public Region getView() {

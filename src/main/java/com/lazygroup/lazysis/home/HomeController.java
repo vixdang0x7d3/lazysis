@@ -20,13 +20,13 @@ public class HomeController {
 	}
 
 	// init method
-	public void bindToParentModel(StringProperty inAppNameProperty, StringProperty maGv_maSvProperty,
-			StringProperty groupProperty, StringProperty maLopProperty) {
+	public void bindToParentModel(StringProperty inAppName, StringProperty maGv_maSv,
+			StringProperty group, StringProperty maLop) {
 
-		model.inAppNameProperty().bind(inAppNameProperty);
-		model.maGv_maSvProperty().bind(maGv_maSvProperty);
-		model.groupProperty().bind(groupProperty);
-		model.maLopProperty().bind(maLopProperty);
+		model.inAppNameProperty().bind(inAppName);
+		model.maGv_maSvProperty().bind(maGv_maSv);
+		model.groupProperty().bind(group);
+		model.maLopProperty().bind(maLop);
 
 	}
 

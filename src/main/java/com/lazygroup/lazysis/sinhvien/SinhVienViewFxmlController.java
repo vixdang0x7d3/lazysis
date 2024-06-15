@@ -57,7 +57,7 @@ public class SinhVienViewFxmlController implements Initializable {
 		this.xoaHandler = xoaHandler;
 	}
 
-	private Region createSinhVienTableView() {
+	private Region createTableView() {
 		return new SinhVienTableViewBuilder(model).build();
 	}
 
@@ -94,8 +94,7 @@ public class SinhVienViewFxmlController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		results.getChildren().add(createSinhVienTableView());
-
+		results.getChildren().add(createTableView());
 		configureThemButton();
 		configureXoaButton();
 		configureSuaButton();

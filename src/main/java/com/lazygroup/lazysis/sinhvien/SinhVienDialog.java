@@ -40,7 +40,7 @@ public class SinhVienDialog extends Dialog<SinhVienModelItem> {
 
 		DialogPane results = new DialogPane();
 
-		results.setHeader(new Label("Sinhvien Dialog"));
+		results.setHeader(Labels.h3("Sinhvien Dialog"));
 		results.setContent(createContent());
 		results.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 

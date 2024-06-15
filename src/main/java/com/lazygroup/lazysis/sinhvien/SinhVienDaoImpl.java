@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
-public class SinhVienDaoImpl implements Dao<SinhVien> {
+public class SinhVienDaoImpl implements Dao<SinhVien, String> {
 
 	private final String sql_findAll = "SELECT * FROM SINHVIEN";
 	private final String sql_ThongTinSinhVien = "{call sp_ThongTinSV(:maSv)}";
@@ -62,7 +62,7 @@ public class SinhVienDaoImpl implements Dao<SinhVien> {
 
 	@Override
 	public List<SinhVien> list() {
-		return npJdbcTemplate.query(sql_listSinhVien, rowMapper);
+		return npJdbcTemplate.query(sql_findAll, rowMapper);
 	}
 
 	@Override
@@ -71,7 +71,7 @@ public class SinhVienDaoImpl implements Dao<SinhVien> {
 		int row = npJdbcTemplate.update(sql_ThemSinhVien, in);
 
 		if (row == 1) {
-			log.info("sinhvien " + t.getMaSv() + " updated");
+			log.info("sinhvien " + t.getMaSv() + " ");
 		}
 
 	}

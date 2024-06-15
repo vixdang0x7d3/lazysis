@@ -37,13 +37,10 @@ public class LoginController {
 	}
 
 	// init method
-	public void bindToParentModel(StringProperty usernameProperty, StringProperty passwordProperty,
-			StringProperty siteProperty) {
-
-		usernameProperty.bind(model.usernameProperty());
-		passwordProperty.bind(model.passwordProperty());
-		siteProperty.bind(model.siteProperty());
-
+	public void bindToParentModel(StringProperty username, StringProperty password, StringProperty site) {
+		model.usernameProperty().bind(username);
+		model.passwordProperty().bind(password);
+		model.siteProperty().bind(site);
 	}
 
 	public void login(Runnable postLoginGuiAction) {

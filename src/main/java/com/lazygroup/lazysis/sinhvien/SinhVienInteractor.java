@@ -1,5 +1,3 @@
-package com.lazygroup.lazysis.sinhvien;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,7 +13,7 @@ public class SinhVienInteractor {
 
 	SinhVienModel model;
 
-	Dao<SinhVien> dao;
+	Dao<SinhVien, String> dao;
 	DatabaseUtils dbUtils;
 
 	@Autowired
@@ -55,20 +53,20 @@ public class SinhVienInteractor {
 		dbUtils.clearThreadBoundContext();
 	}
 
-	public void xoaSinhVien(String maSv) {
+	public void xoaSinhVien() {
 		dbUtils.setThreadBoundContext(model.getUsername(), model.getPassword(), model.getSite());
 
-		dao.delete(maSv);
+		dao.delete(model.getSelectedItem().getMaLop());
 
 		dbUtils.clearThreadBoundContext();
 	}
 
 	public void updateModel(List<SinhVienModelItem> data) {
-		this.model.allItemsProperty().get().setAll(data);
+		model.getAllItems().setAll(data);
 	}
 
 	public void updateModel(SinhVienModelItem data) {
-		this.model.allItemsProperty().add(data);
+		model.allItemsProperty().add(data);
 	}
 
 	public void updateModel(String maSv, SinhVienModelItem data) {

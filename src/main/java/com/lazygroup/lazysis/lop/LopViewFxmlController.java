@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import net.rgielen.fxweaver.core.FxmlView;
 
@@ -27,9 +28,13 @@ public class LopViewFxmlController implements Initializable {
 		this.model = model;
 	}
 
+	public Region createTableView() {
+		return new LopTableViewBuilder(model).build();
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		results.getChildren().add(createTableView());
 	}
 
 }

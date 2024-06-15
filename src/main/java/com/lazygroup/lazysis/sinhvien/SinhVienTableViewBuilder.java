@@ -3,8 +3,6 @@ package com.lazygroup.lazysis.sinhvien;
 import com.lazygroup.lazysis.util.DateColumn;
 
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.ObjectProperty;
-import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Priority;
@@ -67,7 +65,6 @@ public class SinhVienTableViewBuilder implements Builder<Region> {
 		model.selectedItemProperty().bind(results.getSelectionModel().selectedItemProperty());
 
 		results.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_SUBSEQUENT_COLUMNS);
-
 		VBox.setVgrow(results, Priority.ALWAYS);
 
 		return results;
